@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ATMApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class ATMApp extends StatelessWidget {
+  const ATMApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'ATM GRG Error Codes',
+      title: 'ATM GRG System',
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const HomePage(),
     );
   }
@@ -25,7 +26,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final TextEditingController controller = TextEditingController();
+  final controller = TextEditingController();
   String result = "";
 
   final Map<String, String> data = {
@@ -33,19 +34,21 @@ class _HomePageState extends State<HomePage> {
     "202": "Card Reader Error - Clean reader",
     "303": "Network Error - Check connection",
     "404": "Cash Jam - Remove jammed notes",
-    "505": "Printer Error - Check paper tray"
+    "505": "Printer Error - Check paper tray",
+    "606": "ATM Door Open - Secure machine",
+    "707": "Sensor Error - Check sensors",
   };
 
   void search() {
     setState(() {
-      result = data[controller.text.trim()] ?? "No data found";
+      result = data[controller.text.trim()] ?? "Error code not found";
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("ATM GRG Error Codes")),
+      appBar: AppBar(title: const Text("ATM GRG Error System")),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -53,7 +56,7 @@ class _HomePageState extends State<HomePage> {
             TextField(
               controller: controller,
               decoration: const InputDecoration(
-                labelText: "Enter error code",
+                labelText: "Enter Error Code",
                 border: OutlineInputBorder(),
               ),
             ),
@@ -65,7 +68,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 20),
             Text(
               result,
-              style: const TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             )
           ],
         ),
